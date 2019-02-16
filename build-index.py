@@ -11,3 +11,4 @@ config.read(this_script_dir + '/options.ini')
 file_types = config.get('File System', 'file types').split(',')
 
 #recurse_through_filesystem = config.getboolean('File System', 'recurse')
+this is a new line
