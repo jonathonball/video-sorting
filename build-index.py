@@ -18,8 +18,6 @@ config['DEFAULT'] = {
 }
 config.read(this_script_dir + '/options.ini')
 
-file_types = config.get('File System', 'file types').split(',')
-
 parser = argparse.ArgumentParser(prog='build-index', description="Builds an index of media metadata for a given directory")
 parser.add_argument('searchdir',
                     nargs   = '?',
@@ -34,16 +32,12 @@ parser.add_argument('-i', '--indexdir',
                     default = config.get('File System', 'indexdir'),
                     type    = VideoDir,
                     help    = "Directory to store media info index")
+parser.add_argument('-s', '--validsuffixes',
+                    default = config.get('File System', 'file types').split(','),
+                    type    = list,
+                    help    = "Comma separated list of valid file extensions")
 args = parser.parse_args()
 #print(args, file=sys.stderr)
 
-#
-# for dirpath, dirnames, filenames in os.walk(search_dir, followlinks=follow_links):
-#     for file in filenames:
-#         file_full_path = os.path.join(dirpath, file)
-#         suffix = pathlib.Path(file_full_path).suffix[1:]
-#         if suffix in file_types:
-#             print(file_full_path)
-#
 # print("follow_links: " + ("True" if follow_links else "False"))
 # print("search_dir:   " + search_dir)
