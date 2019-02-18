@@ -6,6 +6,6 @@ class VideoIndex:
         self.indexdir = Directory(indexdir)
         self.search_locations = []
 
-    def add_search_location(self, path):
-        new_path = Directory(path)
-        self.search_locations.append(new_path)
+    def add_search_locations(self, paths):
+        paths = [Directory(path) for path in paths]
+        self.search_locations = paths
