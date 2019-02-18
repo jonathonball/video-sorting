@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
+import argparse
 import configparser
 import os
 import pathlib
-import argparse
-import sys
-from videodir import VideoDir
 import pprint
+import sys
+from videoindex import VideoIndex
 
 pp = pprint.PrettyPrinter(indent=4)
 this_script_fullpath = os.path.realpath(__file__)
