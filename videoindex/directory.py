@@ -1,4 +1,5 @@
 import os
+import argparse
 
 class Directory:
 
@@ -11,7 +12,7 @@ class Directory:
 
     def check_path_exists(self, path):
         if (not os.path.isdir(path)):
-            msg = "%s is not a valid path" % path
+            msg = "%s: invalid path or insufficient permissions" % path
             raise argparse.ArgumentTypeError(msg)
 
     def to_string(self):
