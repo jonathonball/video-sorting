@@ -41,4 +41,5 @@ args = parser.parse_args()
 # pp.pprint(args)
 
 index = VideoIndex(args.indexdir)
-index.add_search_locations(args.searchdirs)
+index.set_search_locations(args.searchdirs)
+index.set_search_types(args.add_suffix)
