@@ -6,7 +6,9 @@ import pathlib
 import argparse
 import sys
 from videodir import VideoDir
+import pprint
 
+pp = pprint.PrettyPrinter(indent=4)
 this_script_fullpath = os.path.realpath(__file__)
 this_script_dir = os.path.dirname(this_script_fullpath)
 
@@ -22,7 +24,6 @@ parser = argparse.ArgumentParser(prog='build-index', description="Builds an inde
 parser.add_argument('searchdir',
                     nargs   = '?',
                     default = config.get('File System', 'searchdir'),
-                    type    = VideoDir,
                     help    = "Directory to search for media")
 parser.add_argument('-l', '--followlinks',
                     default = config.getboolean('File System', 'followlinks'),
@@ -30,14 +31,11 @@ parser.add_argument('-l', '--followlinks',
                     help    = "Follow symbolic links")
 parser.add_argument('-i', '--indexdir',
                     default = config.get('File System', 'indexdir'),
-                    type    = VideoDir,
                     help    = "Directory to store media info index")
-parser.add_argument('-s', '--validsuffixes',
+parser.add_argument('--add-suffix',
+                    nargs   = '?',
                     default = config.get('File System', 'file types').split(','),
-                    type    = list,
+                    action  = 'append',
                     help    = "Comma separated list of valid file extensions")
 args = parser.parse_args()
-#print(args, file=sys.stderr)
-
-# print("follow_links: " + ("True" if follow_links else "False"))
-# print("search_dir:   " + search_dir)
+pp.pprint(args)
