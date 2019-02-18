@@ -21,9 +21,9 @@ config['DEFAULT'] = {
 config.read(this_script_dir + '/options.ini')
 
 parser = argparse.ArgumentParser(prog='build-index', description="Builds an index of media metadata for a given directory")
-parser.add_argument('searchdir',
-                    nargs   = '?',
-                    default = config.get('File System', 'searchdir'),
+parser.add_argument('searchdirs',
+                    nargs   = '*',
+                    default = [config.get('File System', 'searchdir')],
                     help    = "Directory to search for media")
 parser.add_argument('-l', '--followlinks',
                     default = config.getboolean('File System', 'followlinks'),
@@ -38,6 +38,8 @@ parser.add_argument('--add-suffix',
                     action  = 'append',
                     help    = "Comma separated list of valid file extensions")
 args = parser.parse_args()
-#pp.pprint(args)
+# pp.pprint(args)
 
 index = VideoIndex(args.indexdir)
+for dir in args.searchdirs:
+    index.add_search_location(dir)
