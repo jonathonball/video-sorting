@@ -1,1 +1,1 @@
-from .main import VideoIndex
+from .videoindex import VideoIndex

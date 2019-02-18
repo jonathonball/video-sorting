@@ -38,4 +38,6 @@ parser.add_argument('--add-suffix',
                     action  = 'append',
                     help    = "Comma separated list of valid file extensions")
 args = parser.parse_args()
-pp.pprint(args)
+#pp.pprint(args)
+
+index = VideoIndex(args.indexdir)
