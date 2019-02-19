@@ -10,7 +10,9 @@ class VideoIndex:
         self.index_file = str(self.indexdir) + '/.videoindex.json'
         self.search_locations = []
         self.search_types = []
-        self.index = {}
+        self.index = {
+            "files": []
+        }
 
     def set_search_locations(self, paths):
         paths = [Directory(path) for path in paths]
