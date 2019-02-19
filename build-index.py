@@ -40,7 +40,7 @@ parser.add_argument('--add-suffix',
 args = parser.parse_args()
 # pp.pprint(args)
 
-index = VideoIndex(args.indexdir)
+index = VideoIndex(args, config)
 index.set_search_locations(args.searchdirs)
 index.set_search_types(args.add_suffix)
 index.build_index()

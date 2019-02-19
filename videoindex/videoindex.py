@@ -2,11 +2,16 @@ import argparse
 import json
 from .directory import Directory
 from .file import File
+import hashlib
+import pathlib
+import os
 
 class VideoIndex:
 
-    def __init__(self, indexdir):
-        self.indexdir = Directory(indexdir)
+    def __init__(self, args, config):
+        self.args = args
+        self.config = config
+        self.indexdir = Directory(args.indexdir)
         self.index_file = str(self.indexdir) + '/.videoindex.json'
         self.search_locations = []
         self.search_types = []
@@ -30,8 +35,13 @@ class VideoIndex:
 
     def build_index(self):
         self.read_existing_index()
-        # for search_location in self.search_locations:
-        #     print(search_location)
+        for search_location in self.search_locations:
+            for dirpath, dirnames, filenames in os.walk(str(search_location), followlinks=self.args.followlinks):
+                 for file in filenames:
+                     file_full_path = os.path.join(dirpath, file)
+                     suffix = pathlib.Path(file_full_path).suffix[1:]
+                     if suffix in self.args.add_suffix:
+                         print(file_full_path)
 
     def read_existing_index(self):
         try:
@@ -49,3 +59,7 @@ class VideoIndex:
         with open(self.index_file, "w") as new_index:
             json.dump(self.index, new_index, indent=4)
         return self.read_index_file()
+
+    def update_index(self):
+        with open(self.index_file, "w") as index:
+            json.dump(self.index, index, indent=4)
