@@ -11,7 +11,13 @@ class VideoIndex:
         self.search_locations = []
         self.search_types = []
         self.index = {
-            "files": []
+            "files": [],
+            "stats": {
+                "resolution": {},
+                "length": {},
+                "bitrate": {},
+                "codec": {}
+            }
         }
 
     def set_search_locations(self, paths):
