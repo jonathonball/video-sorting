@@ -14,6 +14,3 @@ class Directory:
         if (not os.path.isdir(path)):
             msg = "%s: invalid path or insufficient permissions" % path
             raise argparse.ArgumentTypeError(msg)
-
-    def to_string(self):
-        return str(self)
