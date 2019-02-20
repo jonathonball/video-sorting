@@ -2,8 +2,6 @@ import argparse
 import json
 from .directory import Directory
 from .file import File
-import hashlib
-import pathlib
 import os
 
 class VideoIndex:
@@ -36,12 +34,11 @@ class VideoIndex:
     def build_index(self):
         self.read_existing_index()
         for search_location in self.search_locations:
-            for dirpath, dirnames, filenames in os.walk(str(search_location), followlinks=self.args.followlinks):
-                 for file in filenames:
-                     file_full_path = os.path.join(dirpath, file)
-                     suffix = pathlib.Path(file_full_path).suffix[1:]
-                     if suffix in self.args.add_suffix:
-                         print(file_full_path)
+            for path, dirs, filenames in os.walk(str(search_location), followlinks=self.args.followlinks):
+                 for filename in filenames:
+                     file = File(path, filename)
+                     if file.has_media_suffix(self.args.add_suffix):
+                         print(file.filename_hash.hexdigest())
 
     def read_existing_index(self):
         try:
