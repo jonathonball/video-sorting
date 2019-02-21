@@ -26,9 +26,8 @@ class VideoIndex:
         for search_path in self.search_paths:
             for file in self.gather_media_files(search_path):
                 if not self.cache.has_key(file.md5):
-                    print(file.md5)
-                    #self.cache.set()
-                    #print(file.filename_hash.hexdigest())
+                    self.cache.set(file.md5, str(file.path))
+        self.cache.update_index()
 
     def gather_media_files(self, search_path):
         search_path = str(search_path)
