@@ -25,3 +25,12 @@ class File:
         self.filename_hash = hashlib.md5()
         self.filename_hash.update(self.path.encode('utf-8'))
         self.md5 = self.filename_hash.hexdigest()
+
+    def to_dict(self):
+        return {
+            "dirpath": self.dirpath,
+            "filename": self.filename,
+            "path": str(self.path),
+            "suffix": self.suffix,
+            "filename_hash": self.md5,
+        }
