@@ -24,3 +24,4 @@ class File:
     def set_filename_hash(self):
         self.filename_hash = hashlib.md5()
         self.filename_hash.update(self.path.encode('utf-8'))
+        self.md5 = self.filename_hash.hexdigest()
