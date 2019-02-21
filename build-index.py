@@ -37,8 +37,13 @@ parser.add_argument('--add-suffix',
                     default = config.get('File System', 'file types').split(','),
                     action  = 'append',
                     help    = "Comma separated list of valid file extensions")
+parser.add_argument('-v', '--verbose',
+                    default = False,
+                    action  = "store_true",
+                    help    = "Show more output")
 args = parser.parse_args()
-# pp.pprint(args)
+if args.verbose:
+    pp.pprint(args)
 
 index = VideoIndex(args, config)
 index.set_search_paths(args.searchdirs)

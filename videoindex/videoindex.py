@@ -27,6 +27,11 @@ class VideoIndex:
             for file in self.gather_media_files(search_path):
                 if not self.cache.has_key(file.md5):
                     self.cache.set(file.md5, str(file.path))
+                    if self.args.verbose:
+                        print("Added " + str(file.path))
+                else:
+                    if self.args.verbose:
+                        print("Skipping " + str(file.path))
         self.cache.update_index()
 
     def gather_media_files(self, search_path):
@@ -36,4 +41,3 @@ class VideoIndex:
                 file = File(path, filename)
                 if file.has_media_suffix(self.args.add_suffix):
                     yield file
-
