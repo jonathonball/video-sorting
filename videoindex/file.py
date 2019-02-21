@@ -1,7 +1,7 @@
 import os
-import argparse
 import pathlib
 import hashlib
+
 
 class File:
 
