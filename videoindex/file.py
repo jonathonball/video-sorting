@@ -1,6 +1,7 @@
 import os
 import pathlib
 import hashlib
+from pymediainfo import MediaInfo
 
 
 class File:
@@ -8,6 +9,7 @@ class File:
     def __init__(self, dirpath, filename):
         self.set_path_info(dirpath, filename)
         self.set_filename_hash()
+        self.fetch_media_info()
 
     def __str__(self):
         return self.path
@@ -33,4 +35,9 @@ class File:
             "path": str(self.path),
             "suffix": self.suffix,
             "filename_hash": self.md5,
+            "media_info": self.media_info
         }
+
+    def fetch_media_info(self):
+        media_info = MediaInfo.parse(str(self.path))
+        self.media_info = media_info.to_data()
