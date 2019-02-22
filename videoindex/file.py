@@ -9,7 +9,6 @@ class File:
     def __init__(self, dirpath, filename):
         self.set_path_info(dirpath, filename)
         self.set_filename_hash()
-        self.fetch_media_info()
 
     def __str__(self):
         return self.path

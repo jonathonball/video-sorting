@@ -26,6 +26,7 @@ class VideoIndex:
         for search_path in self.search_paths:
             for file in self.gather_media_files(search_path):
                 if not self.cache.has_key(file.md5):
+                    file.fetch_media_info()
                     self.cache.set(file.md5, file.to_dict())
                     if self.args.verbose:
                         print("Added " + str(file.path))
