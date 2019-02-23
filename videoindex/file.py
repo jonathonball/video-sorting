@@ -40,3 +40,12 @@ class File:
     def fetch_media_info(self):
         media_info = MediaInfo.parse(str(self.path))
         self.media_info = media_info.to_data()
+        tracks = self.media_info['tracks']
+        self.media_info['tracks'] = {
+          "general": self.get_tracks_by_type(tracks, 'General'),
+          "video":   self.get_tracks_by_type(tracks, 'Video'),
+          "audio":   self.get_tracks_by_type(tracks, 'Audio')
+        }
+
+    def get_tracks_by_type(self, tracks, type):
+        return [track for track in tracks if track['track_type'] == type]
