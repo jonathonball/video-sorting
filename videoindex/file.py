@@ -42,10 +42,16 @@ class File:
         self.media_info = media_info.to_data()
         tracks = self.media_info['tracks']
         self.media_info['tracks'] = {
-          "general": self.get_tracks_by_type(tracks, 'General'),
+          "general": self.get_tracks_by_type(tracks, 'General')[0],
           "video":   self.get_tracks_by_type(tracks, 'Video'),
           "audio":   self.get_tracks_by_type(tracks, 'Audio')
         }
+        self.tracks = self.media_info['tracks']
 
     def get_tracks_by_type(self, tracks, type):
         return [track for track in tracks if track['track_type'] == type]
+
+    def is_valid_media_file(self):
+        has_audio = 'count_of_audio_streams' in self.tracks['general']
+        has_video = 'count_of_video_streams' in self.tracks['general']
+        return has_audio or has_video

@@ -2,7 +2,7 @@ from .directory import Directory
 from .file import File
 from .cache import IndexCache
 import os
-
+import sys
 
 class VideoIndex:
 
@@ -29,10 +29,13 @@ class VideoIndex:
                     if self.args.verbose:
                         print("Added " + str(file.path))
                     file.fetch_media_info()
-                    self.cache.set(file.md5, file.to_dict())
+                    if file.is_valid_media_file():
+                        self.cache.set(file.md5, file.to_dict())
+                    else:
+                        print("Skipping " + str(file.path) + ", invalid file", file=sys.stderr)
                 else:
                     if self.args.verbose:
-                        print("Skipping " + str(file.path))
+                        print("Skipping " + str(file.path) + ", exists.")
         self.cache.update_index()
 
     def gather_media_files(self, search_path):
