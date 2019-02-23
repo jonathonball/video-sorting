@@ -6,7 +6,7 @@ class Directory:
 
     def __init__(self, path):
         self.check_path_exists(path)
-        self.path = path
+        self.path = os.path.abspath(path)
 
     def __str__(self):
         return self.path
