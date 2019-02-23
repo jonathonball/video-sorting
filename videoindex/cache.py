@@ -21,8 +21,8 @@ class IndexCache:
         return key in self.index['files']
 
     def get(self, key):
-        if key in self.index.files:
-            return self.index.files[key]
+        if self.has_key(key):
+            return self.index['files'][key]
         return None
 
     def set(self, key, value):
