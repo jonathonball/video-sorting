@@ -25,18 +25,25 @@ class VideoIndex:
         self.cache.read_existing_index()
         for search_path in self.search_paths:
             for file in self.gather_media_files(search_path):
-                if not self.cache.has_key(file.md5):
-                    if self.args.verbose:
-                        print("Added " + str(file.path))
-                    file.fetch_media_info()
-                    if file.is_valid_media_file():
-                        self.cache.set(file.md5, file.to_dict())
-                    else:
-                        print("Skipping " + str(file.path) + ", invalid file", file=sys.stderr)
-                else:
-                    if self.args.verbose:
-                        print("Skipping " + str(file.path) + ", exists.")
+                self.check_index_cache(file)
         self.cache.update_index()
+
+    def check_index_cache(self, file):
+        if not self.cache.has_key(file.md5):
+            self.add_file_to_index(file)
+        else:
+            if self.args.verbose:
+                print("Skipping " + str(file.path) + ", exists.")
+
+    def add_file_to_index(self, file):
+        if self.args.verbose:
+            print("Added " + str(file.path))
+        file.fetch_media_info()
+        if file.is_valid_media_file():
+            self.cache.set(file.md5, file.to_dict())
+        else:
+            print("Skipping " + str(file.path) + ", invalid file", file=sys.stderr)
+
 
     def gather_media_files(self, search_path):
         search_path = str(search_path)
