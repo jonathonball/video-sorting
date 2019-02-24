@@ -40,7 +40,7 @@ class VideoIndex:
             print("Added " + str(file.path))
         file.fetch_media_info()
         if file.is_valid_media_file():
-            self.cache.set(file.md5, file.to_dict())
+            self.cache.set(file.md5, file)
         else:
             print("Skipping " + str(file.path) + ", invalid file", file=sys.stderr)
 

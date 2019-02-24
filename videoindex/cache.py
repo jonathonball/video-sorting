@@ -26,7 +26,7 @@ class IndexCache:
         return None
 
     def set(self, key, value):
-        self.index['files'][key] = value
+        self.index['files'][key] = value.to_dict()
 
     def get_stats(self):
         return self.index.stats
