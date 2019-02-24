@@ -1,4 +1,5 @@
 from .directory import Directory
+from .stats import Stats
 import json
 
 
@@ -9,12 +10,7 @@ class IndexCache:
         self.index_file = str(self.indexdir) + '/.videoindex.json'
         self.index = {
             "files": {},
-            "stats": {
-                "resolution": {},
-                "length": {},
-                "bitrate": {},
-                "codec": {}
-            }
+            "stats": Stats()
         }
 
     def has_key(self, key):
